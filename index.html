@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>HomelessHub</title>
+		<!-- ThinkChicago Team Millennium Park | 21 October 2015 -->
+		<link rel="stylesheet" type="text/css" href="reset.css">
+		<script type="text/javascript" src="jquery.js"></script>
+		<script type="text/javascript" src="googleMaps.js"></script>
+		<script src="overlappingMarkerSpiderfier.js"></script>
+		<style>
+
+			html, body {
+				width: 100vw;
+				height: 100vh;
+				overflow: hidden;
+			}
+
+			div#googleMap {
+				width: 100vw;
+				height: 100vh;
+			}
+
+		</style>
+	</head>
+	<body>
+
+		<div id="entry" class="floatingHeader">
+			<h1>Homeless Hub <span>version 0.0.1</span></h1>
+			<p>
+				Showing facilities to help homeless citizens in Chicago from the <a target="blank_" href="https://data.cityofchicago.org/Health-Human-Services/Family-and-Support-Services-Delegate-Agencies/jmw7-ijg5">City of Chicago open dataset.</a><br>This app has offline capabilities. Currently <span id="online-status">online</span>.
+			</p>
+		</div>
+
+		<div id="googleMap"></div>
+
+		<script type="text/javascript" src="map.js"></script>
+		<script type="text/javascript" src="main.js"></script>
+		
+
+		<script type="text/javascript">
+
+			console.log('started');
+
+		</script>
+		
+	</body>
+</html>
