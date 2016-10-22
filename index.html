@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>HomelessHub</title>
+		<title>HomeHub</title>
 		<!-- ThinkChicago Team Millennium Park | 21 October 2015 -->
 		<link rel="stylesheet" type="text/css" href="reset.css">
 		<script type="text/javascript" src="jquery.js"></script>
@@ -18,6 +18,7 @@
 			div#googleMap {
 				width: 100vw;
 				height: 100vh;
+				display: none;
 			}
 
 		</style>
@@ -25,13 +26,15 @@
 	<body>
 
 		<div id="entry" class="floatingHeader">
-			<h1>Homeless Hub <span>version 0.0.1</span></h1>
+			<h1>HomeHub <span>version 0.0.1</span></h1>
 			<p>
 				Showing facilities to help homeless citizens in Chicago from the <a target="blank_" href="https://data.cityofchicago.org/Health-Human-Services/Family-and-Support-Services-Delegate-Agencies/jmw7-ijg5">City of Chicago open dataset.</a><br>This app has offline capabilities. Currently <span id="online-status">online</span>.
+				<select id="program" onchange="filterProgram();"></select>
 			</p>
 		</div>
 
 		<div id="googleMap"></div>
+		<div id="nearby"></div>
 
 		<script type="text/javascript" src="map.js"></script>
 		<script type="text/javascript" src="main.js"></script>
@@ -58,7 +61,8 @@
 				window.addEventListener('online',  updateOnlineStatus);
 				window.addEventListener('offline', updateOnlineStatus);
 
-				whenOnline();
+				//whenOnline();
+				nearbyServices();
 			});
 
 			console.log('started');
