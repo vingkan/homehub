@@ -3,38 +3,95 @@
 	<head>
 		<title>HomeHub</title>
 		<!-- ThinkChicago Team Millennium Park | 21 October 2015 -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" type="text/css" href="reset.css">
 		<script type="text/javascript" src="jquery.js"></script>
 		<script type="text/javascript" src="googleMaps.js"></script>
 		<script src="overlappingMarkerSpiderfier.js"></script>
+		<link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
 		<style>
 
 			html, body {
+				background: #D0DEEA;
 				width: 100vw;
 				height: 100vh;
 				overflow: hidden;
+				font-family: 'Muli';
+				color: #37393A;
 			}
 
 			div#googleMap {
 				width: 100vw;
-				height: 100vh;
-				display: none;
+				height: 32.5vh;
+			}
+
+			div.entry {
+				margin: 1vh 10px;
+			}
+
+			div.entry h1 {
+				padding: 1vh 10px;
+				padding-bottom: 0;
+				font-size: 8vh;
+				color: #0B3954;
+				font-weight: bold;
+			}
+
+			div.entry p {
+				padding: 10px;
+			}
+
+			div#nearby {
+				width: 100vw;
+				height: 50vh;
+				overflow-y: scroll;
+				border-top: 2.5px solid #0B3954;
+			}
+
+			div.service {
+				margin: 15px;
+				margin-left: 17.5px;
+				border-left: 2.5px solid #FF6663;
+			}
+
+			div.service:hover {
+				background: rgba(255, 255, 255, 0.25);
+				cursor: pointer;
+			}
+
+			div.service h2 {
+				color: #0B3954;
+				font-size: 20px;
+				line-height: 25px;
+				font-weight: bold;
+			}
+
+			div.service h2, div.service h3 {
+				padding: 10px;
+			}
+
+			div.service span {
+				background: #FF6663;
+				color: white;
+				font-size: 10px;
+				line-height: 25px;
+				font-weight: normal;
+				padding: 5px;
+				border-radius: 5px;
+				white-space: nowrap;
 			}
 
 		</style>
 	</head>
 	<body>
 
-		<div id="entry" class="floatingHeader">
-			<h1>HomeHub <span>version 0.0.1</span></h1>
-			<p>
-				Showing facilities to help homeless citizens in Chicago from the <a target="blank_" href="https://data.cityofchicago.org/Health-Human-Services/Family-and-Support-Services-Delegate-Agencies/jmw7-ijg5">City of Chicago open dataset.</a><br>This app has offline capabilities. Currently <span id="online-status">online</span>.
-				<select id="program" onchange="filterProgram();"></select>
-			</p>
+		<div class="entry">
+			<h1>HomeHub</h1>
+			<p>Showing helpful services for homeless citizens within a 2 mile radius.</p>
 		</div>
 
-		<div id="googleMap"></div>
 		<div id="nearby"></div>
+		<div id="googleMap"></div>
 
 		<script type="text/javascript" src="map.js"></script>
 		<script type="text/javascript" src="main.js"></script>
@@ -66,6 +123,7 @@
 
 			window.startApp = function(){
 				nearbyServices();
+				//whenOnline();
 			}
 
 			getGeoIP(updateCoords);

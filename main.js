@@ -27,16 +27,42 @@ function getLocalData(){
 	return data;
 }
 
+function formatPhone(digits){
+	return '(' + digits.substr(0, 3) + ') ' + digits.substr(3, 3) + '-' + digits.substr(7);
+}
+
+function showOnMap(lat, lon){
+	initGoogleMap([{
+		getLat: function(){
+			return parseFloat(lat, 10);
+		},
+		getLon: function(){
+			return parseFloat(lon, 10);	
+		}
+	}]);
+	var map = document.getElementById('googleMap');
+	map.classList.add('showing');
+}
+
+var RADIUS = 2 * MILE; // in miles
+
 function nearbyServices(){
-	var radius = 2 * MILE; // in miles
-	var locString = 'within_circle(location, ' + userLocation.latitude + ', ' + userLocation.longitude + ', ' + radius + ')';
-	getData({'$where': locString}, function(data){
+	var locString = 'within_circle(location, ' + userLocation.latitude + ', ' + userLocation.longitude + ', ' + RADIUS + ')';
+	getData({
+		'$where': locString,
+		'division': "Homeless Services"
+	}, function(data){
 		console.log('nearby', data);
+		handleData(data);
 		var nearbyDiv = document.getElementById('nearby');
 		var html = '';
 		for(var i = 0; i < data.length; i++){
 			var service = data[i];
-			html += '<p>' + service.program_model + '</p>';
+			html += '<div class="service" onclick="showOnMap(' + service.latitude + ', ' + service.longitude + ')">'
+			html += '<h2>' + service.site_name + ' <span>' + service.program_model + '</span></h2>'
+			html += '<h3>' + service.agency + '</span></h3>'
+			html += '<h3>' + service.address + ' | ' + formatPhone(service.phone_number.phone_number + '') + '</h3>'
+			html += '</div>'
 		}
 		nearbyDiv.innerHTML = html;
 	});
@@ -45,7 +71,7 @@ function nearbyServices(){
 function whenOnline(){
 	getData({division: "Homeless Services"}, function(data){
 		//Populate program models in selector
-		var optMap = {};
+		/*var optMap = {};
 		for(var d in data){
 			if(data[d]){
 				optMap[data[d].program_model] = true;
@@ -57,7 +83,7 @@ function whenOnline(){
 			if(optMap[i]){
 				selector.innerHTML += '<option value="' + i + '">' + i + '</option>';
 			}
-		}
+		}*/
 		//Store data in localStorage
 		var MAP_DATA = JSON.stringify(data);
 		localStorage.setItem('map_data', MAP_DATA);

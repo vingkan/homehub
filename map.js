@@ -34,8 +34,8 @@ function initGoogleMap(markerArray){
 		var oms = new OverlappingMarkerSpiderfier(googleMap);
 		var infoWindow = new google.maps.InfoWindow();
 		oms.addListener('click', function(marker, event){
-			infoWindow.setContent(marker.desc);
-			infoWindow.open(map, marker);
+			infoWindow.setContent(marker.title);
+			infoWindow.open(googleMap, marker);
 		});
 		oms.addListener('spiderify', function(markers){
 			infoWindow.close();
