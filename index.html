@@ -39,6 +39,28 @@
 
 		<script type="text/javascript">
 
+			window.addEventListener('load', function() {
+				var status = document.getElementById("status");
+				var log = document.getElementById("log");
+
+				function updateOnlineStatus(event) {
+					var condition = navigator.onLine ? "online" : "offline";
+					var status = document.getElementById('online-status');
+					status.innerText = condition;
+					if(condition === 'online'){
+						whenOnline();
+					}
+					else{
+						whenOffline();
+					}
+				}
+
+				window.addEventListener('online',  updateOnlineStatus);
+				window.addEventListener('offline', updateOnlineStatus);
+
+				whenOnline();
+			});
+
 			console.log('started');
 
 		</script>

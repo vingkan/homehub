@@ -20,12 +20,22 @@ function getData(query, callback, limit){
 
 var LIMIT = 200; //Only 160 data points for Homeless Services
 
-getData({division: "Homeless Services"}, function(data){
-	main(data);
-}, LIMIT);
+function whenOnline(){
+	getData({division: "Homeless Services"}, function(data){
+		console.log(data);
+		var MAP_DATA = JSON.stringify(data);
+		localStorage.setItem('map_data', MAP_DATA);
+		handleData(data);
+	}, LIMIT);
+}
 
-function main(data){
-	console.log(data);
+function whenOffline(){
+	var MAP_DATA = localStorage.getItem('map_data');
+	var data = JSON.parse(MAP_DATA);
+	handleData(data);
+}
+
+function handleData(data){
 	var markerList = data.map(function(item){
 		var point = {
 			name: item.agency,
