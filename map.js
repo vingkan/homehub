@@ -21,6 +21,15 @@ function getGeoIP(callback){
 }
 
 function initGoogleMap(markerArray){
+	markerArray.push({
+		getLat: function(){
+			return userLocation.latitude;
+		},
+		getLon: function(){
+			return userLocation.longitude;
+		},
+		name: 'You'
+	});
 	if(markerArray.length > 0){
 		var centerPoint = markerArray[0];
 		var mapProperties = {

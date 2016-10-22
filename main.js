@@ -31,14 +31,15 @@ function formatPhone(digits){
 	return '(' + digits.substr(0, 3) + ') ' + digits.substr(3, 3) + '-' + digits.substr(7);
 }
 
-function showOnMap(lat, lon){
+function showOnMap(lat, lon, name){
 	initGoogleMap([{
 		getLat: function(){
 			return parseFloat(lat, 10);
 		},
 		getLon: function(){
 			return parseFloat(lon, 10);	
-		}
+		},
+		name: name
 	}]);
 	var map = document.getElementById('googleMap');
 	map.classList.add('showing');
@@ -58,7 +59,7 @@ function nearbyServices(){
 		var html = '';
 		for(var i = 0; i < data.length; i++){
 			var service = data[i];
-			html += '<div class="service" onclick="showOnMap(' + service.latitude + ', ' + service.longitude + ')">'
+			html += '<div class="service" onclick="showOnMap(' + service.latitude + ', ' + service.longitude + ', &quot;' + service.site_name + '&quot;)">'
 			html += '<h2>' + service.site_name + ' <span>' + service.program_model + '</span></h2>'
 			html += '<h3>' + service.agency + '</span></h3>'
 			html += '<h3>' + service.address + ' | ' + formatPhone(service.phone_number.phone_number + '') + '</h3>'
