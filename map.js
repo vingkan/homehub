@@ -4,11 +4,21 @@ var userLocation = {
 };
 
 function updateCoords(position){
-	userLocation.latitude = position.coords.latitude;
-	userLocation.longitude = position.coords.longitude;
+	userLocation.latitude = position.location.latitude;
+	userLocation.longitude = position.location.longitude;
+	window.startApp();
 }
 
-navigator.geolocation.getCurrentPosition(updateCoords);
+function getGeoIP(callback){
+	var x = new XMLHttpRequest();
+	x.open('GET', 'https://geoip.nekudo.com/api/', false);
+	x.send();
+	var res = x.responseText;
+	var geoip = JSON.parse(res);
+	if(callback){
+		callback(geoip);
+	}
+}
 
 function initGoogleMap(markerArray){
 	if(markerArray.length > 0){

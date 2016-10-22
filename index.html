@@ -62,10 +62,13 @@
 				window.addEventListener('offline', updateOnlineStatus);
 
 				//whenOnline();
-				nearbyServices();
 			});
 
-			console.log('started');
+			window.startApp = function(){
+				nearbyServices();
+			}
+
+			getGeoIP(updateCoords);
 
 		</script>
 		

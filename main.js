@@ -19,6 +19,7 @@ function getData(query, callback, limit){
 }
 
 var LIMIT = 200; //Only 160 data points for Homeless Services
+var MILE = 1609.344; // in meters
 
 function getLocalData(){
 	var MAP_DATA = localStorage.getItem('map_data');
@@ -27,7 +28,9 @@ function getLocalData(){
 }
 
 function nearbyServices(){
-	getData({'$where': 'within_circle(location, ' + userLocation.latitude + ', ' + userLocation.longitude + ', ' + radius + ')'}, function(data){
+	var radius = 2 * MILE; // in miles
+	var locString = 'within_circle(location, ' + userLocation.latitude + ', ' + userLocation.longitude + ', ' + radius + ')';
+	getData({'$where': locString}, function(data){
 		console.log('nearby', data);
 		var nearbyDiv = document.getElementById('nearby');
 		var html = '';
